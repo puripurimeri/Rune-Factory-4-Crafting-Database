@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+{% block content %}
+{% load static %}
+
+<h3>{{ page_category }} Recipes</h3>
+
+
+{% for category in categories %}
+{% if category.Recipes|length != 0 %}
+<table>
+  <thead>{{ category.category_name }}
+    <tr>
+      <th>Recipe Name</th>
+      <th>Skill Level</th>
+      <th>Sell Value</th>
+      <th>Ingredients</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for recipe in category.Recipes %}
+
+    <tr>
+      <td>{{ recipe.Name }}</td>
+      <td>{{ recipe.SkillLvl }}</td>
+      <td>{{ recipe.SellValue }}</td>
+      <td>  {% for ingredient in recipe.Ingredients %}
+        {{ ingredient }}
+          {% if recipe.Ingredients|length > 1 %}
+            {% if forloop.counter != recipe.Ingredients|length %}
+            +
+            {% endif %}
+          {% endif %}
+      {% endfor %}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+{% endif %}
+{% endfor %}
+{% endblock %}
